@@ -271,3 +271,9 @@ ts,provider_owner,gpu_model,bid_price_uact_per_block,reachable,time_to_ready_sec
 2026-09-07T08:07:40.168924+00:00,akash15tl6v6gd0nte0syyxnv57zmmspgju4c3xfmdhk,t4,191.878,False,,never_reachable
 2026-09-07T12:07:33.032408+00:00,akash15tl6v6gd0nte0syyxnv57zmmspgju4c3xfmdhk,t4,191.878,False,,never_reachable
 2026-09-07T16:05:41.747165+00:00,akash16yr3wxt97ae045a06kr3ycde9srcgpg8syjxxm,rtx6000,284.921,True,35.5526,
+2026-09-07T20:05:42.695584+00:00,akash15tl6v6gd0nte0syyxnv57zmmspgju4c3xfmdhk,t4,191.878,True,32.1637,
+2026-09-08T00:05:44.918663+00:00,akash15tl6v6gd0nte0syyxnv57zmmspgju4c3xfmdhk,t4,191.878,True,37.2671,
+2026-09-08T04:06:04.246117+00:00,akash16yr3wxt97ae045a06kr3ycde9srcgpg8syjxxm,rtx6000,284.921,True,54.1337,
+2026-09-08T08:05:29.761989+00:00,akash16yr3wxt97ae045a06kr3ycde9srcgpg8syjxxm,rtx6000,284.921,False,,"exception:HTTPError:404 from POST /leases: {""error"":""NotFoundError"",""message"":""no lease for deployment\n"",""code"":""not_found"",""type"":""client_error""}"
+2026-09-08T12:05:45.685624+00:00,akash16yr3wxt97ae045a06kr3ycde9srcgpg8syjxxm,rtx6000,284.921,True,37.5312,
+2026-09-08T16:05:44.671818+00:00,akash15tl6v6gd0nte0syyxnv57zmmspgju4c3xfmdhk,t4,191.878,True,37.1024,
