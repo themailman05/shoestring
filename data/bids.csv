@@ -352,3 +352,9 @@ ts,profile,provider,gpu_model,bid_price_uact_per_block,chosen
 2026-09-12T07:06:39.197896+00:00,cpu-micro,akash1ggfvyhr9sar4uxjs4hth3p4kzrwk7lysnenj3g,,4.826603,False
 2026-09-12T07:06:39.197896+00:00,cpu-micro,akash1cg7nnkwy8yzulr6x5egn7n06pgthz5wu5auvvv,,5.466273,True
 2026-09-12T07:06:39.197896+00:00,cpu-micro,akash1z9nr23cgweu45g2jktfx95v7g2xp8qlsa3ys2x,,7.0,False
+2026-09-12T12:07:43.083829+00:00,cpu-heavy,akash1hgulk6aekakqzc0v6wukrd3dy9n90f5gkl4ezk,,45.0,True
+2026-09-12T12:07:43.083829+00:00,cpu-heavy,akash1aaul837r7en7hpk9wv2svg8u78fdq0t2j2e82z,,46.0,False
+2026-09-12T12:07:43.083829+00:00,cpu-heavy,akash1dudfnsqwfecytfqxwvnfc7eqc5ca429zfkhwyd,,50.568841,False
+2026-09-12T12:07:43.083829+00:00,cpu-heavy,akash1z9nr23cgweu45g2jktfx95v7g2xp8qlsa3ys2x,,67.0,False
+2026-09-12T12:07:43.083829+00:00,cpu-heavy,akash1rja3y2ctj3tzmesvh0zfhzzx95rfjw405hwt8d,,84.915645,False
+2026-09-12T12:07:43.083829+00:00,cpu-heavy,akash1cg7nnkwy8yzulr6x5egn7n06pgthz5wu5auvvv,,168.756644,False
