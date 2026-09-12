@@ -338,3 +338,10 @@ ts,profile,provider,gpu_model,bid_price_uact_per_block,chosen
 2026-09-11T20:54:02.468078+00:00,cpu-heavy,akash1k94uya5rhrtj9rfw850az9aq2d6vdpjmtnlgd0,,71.108072,False
 2026-09-11T20:54:02.468078+00:00,cpu-heavy,akash1rja3y2ctj3tzmesvh0zfhzzx95rfjw405hwt8d,,84.915645,True
 2026-09-11T20:54:02.468078+00:00,cpu-heavy,akash16yr3wxt97ae045a06kr3ycde9srcgpg8syjxxm,,89.902747,False
+2026-09-12T00:11:23.242563+00:00,gpu,akash16yr3wxt97ae045a06kr3ycde9srcgpg8syjxxm,rtx6000,284.920762,False
+2026-09-12T00:11:23.242563+00:00,gpu,akash1ta6d9l4ujhj6ztvveyjuyr3zha3te3txz5nr5d,a100,3063.415746,False
+2026-09-12T00:11:23.242563+00:00,gpu,akash172k755dd82elslzcgkgtk3ux5ytdqvx5wq2a98,a100,3179.719429,False
+2026-09-12T00:11:23.242563+00:00,gpu,akash1uezxmc39c9uky9plqdvmnzp7yfwpyamjtq9g2w,pro6000se,3400.696426,False
+2026-09-12T00:11:23.242563+00:00,gpu,akash17r6r9u364t49k7qdef52qtm6wm5mcn0lpzfgnv,h100,3402.347706,True
+2026-09-12T00:11:23.242563+00:00,gpu,akash1svfr9xarfkcxwdnx32nvl8cs9rfruu4nd56c4f,h100,4265.995827,False
+2026-09-12T00:11:23.242563+00:00,gpu,akash17erkmem6xcugfnew2c0ujfqtet32j29ztk03jt,h100,5268.533573,False
