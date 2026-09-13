@@ -55,3 +55,4 @@ ts,dseq,profile,provider_owner,gpu_model,mode,bid_price_uact_per_block,reachable
 2026-09-12T12:07:43.083829+00:00,1789214863542,cpu-heavy,akash1hgulk6aekakqzc0v6wukrd3dy9n90f5gkl4ezk,,cheapest,45.0,True,48.3,15.212,,http://f87i1gfoedbi1cpko7fjo4o294.ingress.h4i-dedicated.eu-sw-2.digitalfrontier.so
 2026-09-12T17:01:32.275883+00:00,1789232492489,gpu,akash16yr3wxt97ae045a06kr3ycde9srcgpg8syjxxm,rtx6000,cheapest,284.920762,True,49.9,15.318,,http://p9lmpanqnddtl5o6u7g3j4dv00.ingress.zencloud.eu
 2026-09-12T20:29:19.928163+00:00,1789244960195,cpu-micro,akash1s3hq36mpas4nmkqasn7fgwhs9968cgl3u5esnw,,coverage,3.214866,False,,,never_reachable,http://vei3qsc191e43bogocdtukcu0s.ingress.froggy-servers.com
+2026-09-12T23:57:39.146760+00:00,1789257459534,cpu-heavy,akash1s3hq36mpas4nmkqasn7fgwhs9968cgl3u5esnw,,cheapest,41.987956,False,,,never_reachable,http://1im3n0dor1a6p3qlf0kgs2dhn0.ingress.froggy-servers.com
