@@ -82,3 +82,4 @@ ts,dseq,profile,provider_owner,gpu_model,mode,bid_price_uact_per_block,reachable
 2026-09-18T12:55:40.409188+00:00,1789736140707,cpu-heavy,akash1z9nr23cgweu45g2jktfx95v7g2xp8qlsa3ys2x,,cheapest,60.0,True,35.0,5.175,,http://hs625v6fu1feb7rd01ufv7mce0.ingress.m3a.eu-n-3.digitalfrontier.network
 2026-09-18T17:38:32.627936+00:00,1789753113111,gpu,akash1al463a2f6jvf506e73hx0329fwgwz66r7cpkhr,rtx5090,cheapest,1194.415562,True,40.9,4.147,,http://89cu79h1ddbjf679k49nn2b8ss.ingress.5090.mel.val.akash.pub
 2026-09-18T20:50:19.049730+00:00,1789764619341,cpu-micro,akash1cg7nnkwy8yzulr6x5egn7n06pgthz5wu5auvvv,,coverage,5.466273,True,45.1,9.413,,http://4kg49m8c0d8gpf9uij2og0en64.ingress.cpu.lax.lsn.akash.pub
+2026-09-19T00:12:51.175355+00:00,1789776771422,cpu-heavy,akash1aaul837r7en7hpk9wv2svg8u78fdq0t2j2e82z,,coverage,66.0,True,57.4,18.311,,http://2qhou4qv2pdu7cou52kjb8k890.ingress.h6i-dedicated.eu-se-1.digitalfrontier.so
