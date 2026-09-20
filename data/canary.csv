@@ -90,3 +90,4 @@ ts,dseq,profile,provider_owner,gpu_model,mode,bid_price_uact_per_block,reachable
 <!--[if lt IE 7]> <html class=""no-js ie6 oldie"" lang=""en-US""> <![endif]-->
 <!--[if IE 7]>    <html class=""no-js ie7 oldie"" lang=""en-US""> <![e",
 2026-09-20T00:05:23.075219+00:00,1789862723456,gpu,akash1al463a2f6jvf506e73hx0329fwgwz66r7cpkhr,rtx5090,cheapest,1194.415562,True,43.7,4.161,,http://db7vj2531tdqbcpv0gv48h3qfg.ingress.5090.mel.val.akash.pub
+2026-09-20T04:49:12.175943+00:00,1789879752537,cpu-micro,akash15tl6v6gd0nte0syyxnv57zmmspgju4c3xfmdhk,,cheapest,2.954114,True,38.3,8.414,,http://n3vo0ctadlc1vaa74cac7pj9ok.ingress.hurricane.akash.pub
