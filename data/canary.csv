@@ -93,3 +93,4 @@ ts,dseq,profile,provider_owner,gpu_model,mode,bid_price_uact_per_block,reachable
 2026-09-20T04:49:12.175943+00:00,1789879752537,cpu-micro,akash15tl6v6gd0nte0syyxnv57zmmspgju4c3xfmdhk,,cheapest,2.954114,True,38.3,8.414,,http://n3vo0ctadlc1vaa74cac7pj9ok.ingress.hurricane.akash.pub
 2026-09-20T11:13:48.965201+00:00,1789902829206,cpu-heavy,akash1s3hq36mpas4nmkqasn7fgwhs9968cgl3u5esnw,,cheapest,41.987956,False,,,never_reachable,http://oomibd6gt5fn71fo6uvp41v3qk.ingress.froggy-servers.com
 2026-09-20T15:58:21.840122+00:00,1789919902000,gpu,akash1svfr9xarfkcxwdnx32nvl8cs9rfruu4nd56c4f,h100,coverage,4265.995827,True,39.4,4.536,,http://o73u52iamhella7ssub5i67ai4.ingress.h100.ams2.val.akash.pub
+2026-09-20T18:42:51.791621+00:00,1789929772118,cpu-micro,akash15tl6v6gd0nte0syyxnv57zmmspgju4c3xfmdhk,,cheapest,2.954114,True,38.4,8.421,,http://p0gbj284e9dv39lpfv0gastias.ingress.hurricane.akash.pub
