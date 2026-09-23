@@ -20,3 +20,5 @@ dseq,purpose
 1785460994984,workload: ML training campaign 2026-07-31 to 2026-08-10 (the distillation run)
 1786660198391,test: multi-provider sweep 2026-08-13
 1785460344136,test: training-campaign provider trial (a100) 2026-07-31
+1784390016357,test: manual deploy test 2026-07-18 — closed manifest_timeout provider-side (operator-contributed record)
+1784390613845,test: manual deploy test 2026-07-18 — closed manifest_timeout provider-side (operator-contributed record)

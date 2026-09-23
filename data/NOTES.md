@@ -69,3 +69,21 @@ published with purposes in `nonprobe_leases.csv` — including the ML
 training campaign lease (`1785460994984`) this project grew out of.
 Recording durability is a reason the probe series is migrating to public
 CI (and, planned, to Akash itself).
+
+## 2026-07-18 · akash1sevd2… · two manifest_timeout closes (operator-contributed)
+
+Volunteered by the operator from chain records — failures the dataset
+never saw because they predate it (my manual testing era, GPU-tier bids
+at 170.105767 uact/blk vs the pilot's flat 153.916): dseqs
+`1784390016357` and `1784390613845`, created 9m54s apart, both closed
+`lease_closed_reason_manifest_timeout` at exactly 52 blocks. One
+~10-minute degraded window, cause not reconstructable 63 days later, no
+recurrence since. Classified honestly: one incident, unknown cause,
+operator-disclosed.
+
+## Clock calibration (operator-contributed)
+
+Console-API dseqs are client-generated ms timestamps and land 3–4 blocks
+(~18–21s) before on-chain `created_at` — broadcast-to-commit lag. Rows
+in this dataset quote client-side times; chain-side timestamps run ~20s
+later. Matching windows account for this.
