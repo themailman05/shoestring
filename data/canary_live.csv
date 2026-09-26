@@ -380,3 +380,9 @@ ts,provider_owner,gpu_model,bid_price_uact_per_block,reachable,time_to_ready_sec
 2026-09-25T08:05:47.872859+00:00,akash16yr3wxt97ae045a06kr3ycde9srcgpg8syjxxm,rtx6000,250.881,True,40.0775,
 2026-09-25T12:05:32.825506+00:00,akash16yr3wxt97ae045a06kr3ycde9srcgpg8syjxxm,rtx6000,250.881,False,,"exception:HTTPError:404 from POST /leases: {""error"":""NotFoundError"",""message"":""The lease for deployment 1790337904005 exists, but provider akash16yr3wxt97ae045a06kr3ycde9srcgpg8syjxxm did not receive "
 2026-09-25T16:07:34.865696+00:00,akash15tl6v6gd0nte0syyxnv57zmmspgju4c3xfmdhk,t4,191.878,False,,never_reachable
+2026-09-25T20:05:47.637075+00:00,akash16yr3wxt97ae045a06kr3ycde9srcgpg8syjxxm,rtx6000,250.881,True,39.8609,
+2026-09-26T00:05:51.588351+00:00,akash15tl6v6gd0nte0syyxnv57zmmspgju4c3xfmdhk,t4,191.878,True,35.8644,
+2026-09-26T04:07:37.153969+00:00,akash15tl6v6gd0nte0syyxnv57zmmspgju4c3xfmdhk,t4,191.878,False,,never_reachable
+2026-09-26T08:05:47.160063+00:00,akash16yr3wxt97ae045a06kr3ycde9srcgpg8syjxxm,rtx6000,250.881,True,38.6231,
+2026-09-26T12:07:34.620978+00:00,akash15tl6v6gd0nte0syyxnv57zmmspgju4c3xfmdhk,t4,191.878,False,,never_reachable
+2026-09-26T16:07:36.332531+00:00,akash15tl6v6gd0nte0syyxnv57zmmspgju4c3xfmdhk,t4,191.878,False,,never_reachable
