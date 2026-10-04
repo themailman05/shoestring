@@ -150,3 +150,4 @@ ts,dseq,profile,provider_owner,gpu_model,mode,bid_price_uact_per_block,reachable
 2026-10-03T16:10:19.476132+00:00,1791043819702,cpu-micro,akash16yr3wxt97ae045a06kr3ycde9srcgpg8syjxxm,,coverage,4.021781,True,80.9,41.6,,http://ffvj89upalfindaemum5n41kgk.ingress.zencloud.eu
 2026-10-03T21:08:13.452275+00:00,1791061693749,cpu-heavy,akash1aaul837r7en7hpk9wv2svg8u78fdq0t2j2e82z,,coverage,59.0,True,70.3,15.669,,http://9ij0h0i2ihdjhaq60ojtt471h4.ingress.h6i-dedicated.eu-se-1.digitalfrontier.so
 2026-10-04T00:31:24.327328+00:00,1791073884565,gpu,akash17erkmem6xcugfnew2c0ujfqtet32j29ztk03jt,h100,coverage,5268.533573,True,37.2,3.897,,http://oi700u1s41fsl60aitaeg65jdg.ingress.h100.wdc.hh.akash.pub
+2026-10-04T08:21:10.594131+00:00,1791102070935,cpu-micro,akash1s3hq36mpas4nmkqasn7fgwhs9968cgl3u5esnw,,coverage,3.214866,False,,,never_reachable,http://ncock6vk3599petu6tb8j6pvbc.ingress.froggy-servers.com
