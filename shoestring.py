@@ -27,6 +27,7 @@ BLACKLIST (comma-separated provider addresses).
 See README.md for engines, network modes, cost data, and field notes.
 """
 import argparse
+import base64
 import json
 import os
 import sys
@@ -167,14 +168,17 @@ _VLLM_ARGS = (
 _VLLM_IMAGE = os.environ.get("VLLM_IMAGE", "vllm/vllm-openai:latest")
 ALIAS = os.environ.get("MODEL_ALIAS", "qwen3.8-27b")
 
-# comfyui-qwen-image file set. MODEL_ID selects the diffusion GGUF as
-# repo:file (restrictions: repo must also host the TE/VAE paths below).
+# comfyui-qwen-image file set. MODEL_ID selects the diffusion weights as
+# repo:file (repo must also host the TE/VAE paths below). A .gguf suffix
+# means GGUF mode (ComfyUI-GGUF node); anything else (e.g. a UC-fp8
+# .safetensors) means native mode (stock UNETLoader, no custom node).
 _QWEN_MODEL = os.environ.get(
     "MODEL_ID",
     "abenzerps/Qwen-Image-2.1-Uncensored-GGUF:qwen-image-2.1-UC-Q4_K_M.gguf")
 _QWEN_REPO, _, _QWEN_DIFFUSION_PATH = _QWEN_MODEL.partition(":")
 if not _QWEN_DIFFUSION_PATH:
     _QWEN_DIFFUSION_PATH = "qwen-image-2.1-UC-Q4_K_M.gguf"
+_QWEN_IS_GGUF = _QWEN_DIFFUSION_PATH.lower().endswith(".gguf")
 _QWEN_TE_PATH = os.environ.get(
     "QWEN_TEXT_ENCODER", "text_encoders/qwen3vl_8b_int8_convrot.safetensors")
 _QWEN_VAE_PATH = os.environ.get(
@@ -183,6 +187,92 @@ _QWEN_DIFFUSION_URL = f"https://huggingface.co/{_QWEN_REPO}/resolve/main/{_QWEN_
 _QWEN_TE_URL = f"https://huggingface.co/{_QWEN_REPO}/resolve/main/{_QWEN_TE_PATH}"
 _QWEN_VAE_URL = f"https://huggingface.co/{_QWEN_REPO}/resolve/main/{_QWEN_VAE_PATH}"
 _QWEN_FILES = [_QWEN_DIFFUSION_URL, _QWEN_TE_URL, _QWEN_VAE_URL]
+
+
+def _base(path):
+    return path.rsplit("/", 1)[-1]
+
+
+def _qwen_workflow_json():
+    """Starter t2i graph matching the selected diffusion file: Unet Loader
+    (GGUF) in GGUF mode, stock UNETLoader in native mode. Compact mirror of
+    workflows/qwen_image_2_1_gguf_t2i.json (same 9 nodes / 9 links)."""
+    if _QWEN_IS_GGUF:
+        unet_type, unet_widgets = "UnetLoaderGGUF", [_base(_QWEN_DIFFUSION_PATH)]
+    else:
+        unet_type, unet_widgets = "UNETLoader", [_base(_QWEN_DIFFUSION_PATH), "default"]
+
+    def node(i, typ, pos, size, order, title=None, inputs=None,
+             outputs=None, widgets=None):
+        n = {"id": i, "type": typ, "pos": pos, "size": size, "flags": {},
+             "order": order, "mode": 0, "inputs": inputs or [],
+             "outputs": outputs or [],
+             "properties": {"Node name for S&R": typ}}
+        if title:
+            n["title"] = title
+        if widgets is not None:
+            n["widgets_values"] = widgets
+        return n
+
+    def out(name, typ, links, slot=0):
+        return {"name": name, "type": typ, "links": links, "slot_index": slot}
+
+    def inp(name, typ, link):
+        return {"name": name, "type": typ, "link": link}
+
+    nodes = [
+        node(1, unet_type, [20, 80], [330, 120], 0,
+             outputs=[out("MODEL", "MODEL", [1])], widgets=unet_widgets),
+        node(2, "CLIPLoader", [20, 260], [330, 140], 1,
+             outputs=[out("CLIP", "CLIP", [2, 3])],
+             widgets=[_base(_QWEN_TE_PATH), "qwen_image"]),
+        node(3, "VAELoader", [20, 440], [330, 120], 2,
+             outputs=[out("VAE", "VAE", [8])], widgets=[_base(_QWEN_VAE_PATH)]),
+        node(4, "CLIPTextEncode", [400, 80], [420, 200], 3,
+             title="Positive Prompt", inputs=[inp("clip", "CLIP", 2)],
+             outputs=[out("CONDITIONING", "CONDITIONING", [4])],
+             widgets=["a scenic mountain lake at sunrise, photorealistic, highly detailed"]),
+        node(5, "CLIPTextEncode", [400, 320], [420, 200], 4,
+             title="Negative Prompt", inputs=[inp("clip", "CLIP", 3)],
+             outputs=[out("CONDITIONING", "CONDITIONING", [5])],
+             widgets=["blurry, low quality, distorted, watermark"]),
+        node(6, "EmptyLatentImage", [400, 560], [330, 140], 5,
+             outputs=[out("LATENT", "LATENT", [6])], widgets=[1024, 1024, 1]),
+        node(7, "KSampler", [870, 200], [330, 270], 6,
+             inputs=[inp("model", "MODEL", 1), inp("positive", "CONDITIONING", 4),
+                     inp("negative", "CONDITIONING", 5),
+                     inp("latent_image", "LATENT", 6)],
+             outputs=[out("LATENT", "LATENT", [7])],
+             widgets=[447606998181262, "randomize", 25, 1.0, "euler", "simple", 1.0]),
+        node(8, "VAEDecode", [1250, 240], [230, 120], 7,
+             inputs=[inp("samples", "LATENT", 7), inp("vae", "VAE", 8)],
+             outputs=[out("IMAGE", "IMAGE", [9])]),
+        node(9, "SaveImage", [1530, 240], [330, 270], 8,
+             inputs=[inp("images", "IMAGE", 9)], widgets=["ComfyUI"]),
+    ]
+    links = [
+        [1, 1, 0, 7, 0, "MODEL"],
+        [2, 2, 0, 4, 0, "CLIP"],
+        [3, 2, 0, 5, 0, "CLIP"],
+        [4, 4, 0, 7, 1, "CONDITIONING"],
+        [5, 5, 0, 7, 2, "CONDITIONING"],
+        [6, 6, 0, 7, 3, "LATENT"],
+        [7, 7, 0, 8, 0, "LATENT"],
+        [8, 3, 0, 8, 1, "VAE"],
+        [9, 8, 0, 9, 0, "IMAGE"],
+    ]
+    return json.dumps({"last_node_id": 9, "last_link_id": 9, "nodes": nodes,
+                       "links": links, "groups": [], "config": {},
+                       "extra": {}, "version": 0.4})
+
+
+_QWEN_WF_B64 = base64.b64encode(_qwen_workflow_json().encode()).decode()
+_QWEN_GGUF_SETUP = (
+    "git clone --depth 1 https://github.com/leejet/ComfyUI-GGUF custom_nodes/ComfyUI-GGUF && "
+    "( [ -f custom_nodes/ComfyUI-GGUF/requirements.txt ] && pip install --no-cache-dir -r custom_nodes/ComfyUI-GGUF/requirements.txt || true )"
+    if _QWEN_IS_GGUF else
+    "echo 'native diffusion weights; skipping ComfyUI-GGUF'"
+)
 
 ENGINES = {
     # llamacpp: the battle-tested path. Cheapest cards (24GB) work.
@@ -287,14 +377,16 @@ ENGINES = {
             "cd /tmp && python -m http.server 8000 --bind 127.0.0.1"
         ),
     },
-    # comfyui-qwen-image: text-to-image via ComfyUI + ComfyUI-GGUF (uncensored
-    # Qwen-Image 2.1 GGUF, Qwen Research License -- NOT Apache like Qwen 3.8).
-    # Three files: diffusion GGUF in GPU VRAM (~4.6GB Q4_K_M), Qwen3-VL text
+    # comfyui-qwen-image: text-to-image (uncensored Qwen-Image 2.1, Qwen
+    # Research License -- NOT Apache like Qwen 3.8). Three files: diffusion
+    # weights in GPU VRAM (Q4_K_M GGUF ~4.6GB, or a native UC-fp8/int8
+    # .safetensors ~7GB -- both fit the cheapest 24GB cards), Qwen3-VL text
     # encoder (int8 default, ~9GB -- ComfyUI offloads it to CPU RAM, where it
     # costs nothing per step since encoding runs once per prompt), VAE.
-    # Fits the cheapest 24GB cards. Unauthenticated UI => REQUIRES --tailscale.
-    # The official Comfy-Org t2i template is preloaded under Workflows; swap
-    # its UNETLoader for Unet Loader (GGUF) and queue.
+    # MODEL_ID suffix picks the mode: .gguf => Unet Loader (GGUF),
+    # .safetensors => stock UNETLoader. The starter workflow is generated at
+    # deploy time to match, so it Queues with zero edits.
+    # Unauthenticated UI => REQUIRES --tailscale.
     "comfyui-qwen-image": {
         "image": os.environ.get("COMFY_IMAGE",
                                 "pytorch/pytorch:2.9.1-cuda12.8-cudnn9-runtime"),
@@ -308,8 +400,9 @@ ENGINES = {
         "ui_help": (
             "Open the UI in a browser on your tailnet:  {endpoint}\n"
             "\n"
-            "Starter workflow: left sidebar > Workflows > qwen_image_2_1_gguf_t2i\n"
-            "(preloaded, GGUF-ready -- just Queue; edit the prompt text inline).\n"
+            "Starter workflow: left sidebar > Workflows > qwen_image_2_1_t2i\n"
+            f"({'GGUF' if _QWEN_IS_GGUF else 'native'} mode, preloaded -- "
+            "just Queue; edit the prompt text inline).\n"
             "\n"
             "--- teardown (billing stops only when closed!) -----------------------------\n"
             "./shoestring.py close {dseq}"
@@ -319,15 +412,12 @@ ENGINES = {
             "apt-get update && apt-get install -y git wget curl ca-certificates && "
             "git clone --depth 1 https://github.com/comfyanonymous/ComfyUI /opt/ComfyUI && "
             "cd /opt/ComfyUI && pip install --no-cache-dir -r requirements.txt && "
-            "git clone --depth 1 https://github.com/leejet/ComfyUI-GGUF custom_nodes/ComfyUI-GGUF && "
-            "( [ -f custom_nodes/ComfyUI-GGUF/requirements.txt ] && pip install --no-cache-dir -r custom_nodes/ComfyUI-GGUF/requirements.txt || true ) && "
+            f"{_QWEN_GGUF_SETUP} && "
             "mkdir -p models/diffusion_models models/text_encoders models/vae user/default/workflows && "
-            f"wget -nv -O models/diffusion_models/{_QWEN_DIFFUSION_PATH.rsplit('/', 1)[-1]} {_QWEN_DIFFUSION_URL} && "
-            f"wget -nv -O models/text_encoders/{_QWEN_TE_PATH.rsplit('/', 1)[-1]} {_QWEN_TE_URL} && "
-            f"wget -nv -O models/vae/{_QWEN_VAE_PATH.rsplit('/', 1)[-1]} {_QWEN_VAE_URL} && "
-            "( wget -nv -O user/default/workflows/qwen_image_2_1_gguf_t2i.json "
-            "https://raw.githubusercontent.com/themailman05/shoestring/main/workflows/qwen_image_2_1_gguf_t2i.json "
-            "|| echo 'workflow preload failed; import the template URL manually' ) && "
+            f"wget -nv -O models/diffusion_models/{_base(_QWEN_DIFFUSION_PATH)} {_QWEN_DIFFUSION_URL} && "
+            f"wget -nv -O models/text_encoders/{_base(_QWEN_TE_PATH)} {_QWEN_TE_URL} && "
+            f"wget -nv -O models/vae/{_base(_QWEN_VAE_PATH)} {_QWEN_VAE_URL} && "
+            f"echo {_QWEN_WF_B64} | base64 -d > user/default/workflows/qwen_image_2_1_t2i.json && "
             f"python main.py --listen 0.0.0.0 --port 8000 {os.environ.get('COMFY_ARGS', '')}"
             ") 2>&1 | tee /tmp/boot.log; "
             "echo '=== WORKLOAD EXITED; serving boot.log ==='; "
