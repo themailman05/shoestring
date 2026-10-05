@@ -86,7 +86,7 @@ Default model is **Qwen 3.8 27B** (Apache 2.0, 262k context, hybrid attention/ma
 
 ### comfyui-qwen-image
 
-Text-to-image (uncensored Qwen-Image 2.1 GGUF, [abenzerps build](https://huggingface.co/abenzerps/Qwen-Image-2.1-Uncensored-GGUF)). Downloads three files at boot: diffusion GGUF (`Q4_K_M`, ~4.6GB, stays in VRAM), Qwen3-VL text encoder (int8, ~9GB — offloads to CPU RAM, no speed cost since encoding runs once per prompt), and VAE. Fits the cheapest 24GB cards. Unauthenticated UI, so `--tailscale` is required. The official Comfy-Org t2i template is preloaded under Workflows — swap its `UNETLoader` for `Unet Loader (GGUF)`, set `CLIPLoader` type to `qwen_image`, and queue. Knobs: `MODEL_ID` selects the diffusion file (`repo:file`), `QWEN_TEXT_ENCODER` / `QWEN_VAE` the companions, `COMFY_ARGS` extra `main.py` flags (e.g. `--lowvram`). Note the license is Qwen Research License, not Apache 2.0.
+Text-to-image (uncensored Qwen-Image 2.1 GGUF, [abenzerps build](https://huggingface.co/abenzerps/Qwen-Image-2.1-Uncensored-GGUF)). Downloads three files at boot: diffusion GGUF (`Q4_K_M`, ~4.6GB, stays in VRAM), Qwen3-VL text encoder (int8, ~9GB — offloads to CPU RAM, no speed cost since encoding runs once per prompt), and VAE. Fits the cheapest 24GB cards. Unauthenticated UI, so `--tailscale` is required. A GGUF-native t2i workflow (`workflows/qwen_image_2_1_gguf_t2i.json`: Unet Loader GGUF + `qwen_image` CLIP + KSampler) is preloaded under Workflows — just Queue. Knobs: `MODEL_ID` selects the diffusion file (`repo:file`), `QWEN_TEXT_ENCODER` / `QWEN_VAE` the companions, `COMFY_ARGS` extra `main.py` flags (e.g. `--lowvram`). Note the license is Qwen Research License, not Apache 2.0.
 
 ## Provider selection
 
