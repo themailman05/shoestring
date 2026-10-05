@@ -21,7 +21,8 @@ Usage:
     ./shoestring.py close  <dseq>                # billing stops here!
 
 Env knobs: MODEL_ID, NO_MTP=1, KV_F16=1, HF_TOKEN, VLLM_IMAGE,
-LLAMACPP_IMAGE, BLACKLIST (comma-separated provider addresses).
+LLAMACPP_IMAGE, COMFY_IMAGE, QWEN_TEXT_ENCODER, QWEN_VAE, COMFY_ARGS,
+BLACKLIST (comma-separated provider addresses).
 
 See README.md for engines, network modes, cost data, and field notes.
 """
@@ -166,6 +167,23 @@ _VLLM_ARGS = (
 _VLLM_IMAGE = os.environ.get("VLLM_IMAGE", "vllm/vllm-openai:latest")
 ALIAS = os.environ.get("MODEL_ALIAS", "qwen3.8-27b")
 
+# comfyui-qwen-image file set. MODEL_ID selects the diffusion GGUF as
+# repo:file (restrictions: repo must also host the TE/VAE paths below).
+_QWEN_MODEL = os.environ.get(
+    "MODEL_ID",
+    "abenzerps/Qwen-Image-2.1-Uncensored-GGUF:qwen-image-2.1-UC-Q4_K_M.gguf")
+_QWEN_REPO, _, _QWEN_DIFFUSION_PATH = _QWEN_MODEL.partition(":")
+if not _QWEN_DIFFUSION_PATH:
+    _QWEN_DIFFUSION_PATH = "qwen-image-2.1-UC-Q4_K_M.gguf"
+_QWEN_TE_PATH = os.environ.get(
+    "QWEN_TEXT_ENCODER", "text_encoders/qwen3vl_8b_int8_convrot.safetensors")
+_QWEN_VAE_PATH = os.environ.get(
+    "QWEN_VAE", "vae/qwen_image_2.1_vae_bf16.safetensors")
+_QWEN_DIFFUSION_URL = f"https://huggingface.co/{_QWEN_REPO}/resolve/main/{_QWEN_DIFFUSION_PATH}"
+_QWEN_TE_URL = f"https://huggingface.co/{_QWEN_REPO}/resolve/main/{_QWEN_TE_PATH}"
+_QWEN_VAE_URL = f"https://huggingface.co/{_QWEN_REPO}/resolve/main/{_QWEN_VAE_PATH}"
+_QWEN_FILES = [_QWEN_DIFFUSION_URL, _QWEN_TE_URL, _QWEN_VAE_URL]
+
 ENGINES = {
     # llamacpp: the battle-tested path. Cheapest cards (24GB) work.
     # OpenAI-compatible only; bridge to Claude Code via LiteLLM (README).
@@ -190,9 +208,10 @@ ENGINES = {
             "else C=32768; fi; "
             "C=${{CTX_FORCE:-$C}}; echo llama ctx-size: $C; "
             "/app/llama-server -hf {model} "
-            + ("" if os.environ.get("NO_MTP") else
-               "-hfd ggml-org/Qwen3.8-27B-GGUF:Q4_0 "
-               "--spec-default --spec-type draft-mtp ")
+             + ("" if os.environ.get("NO_MTP") else
+                "-hfd ggml-org/Qwen3.8-27B-GGUF "
+                "-md mtp-Qwen3.8-27B-Q4_0.gguf "
+                "--spec-default --spec-type draft-mtp ")
             + "--reasoning-preserve "
             "--host 0.0.0.0 --port 8000 "
             "--ctx-size $C -ngl 99 --jinja --alias {alias} "
@@ -263,6 +282,58 @@ ENGINES = {
             "wget -nv -O models/checkpoints/flux1-schnell-fp8.safetensors "
             "https://huggingface.co/Comfy-Org/flux1-schnell/resolve/main/flux1-schnell-fp8.safetensors && "
             "python main.py --listen 0.0.0.0 --port 8000 "
+            ") 2>&1 | tee /tmp/boot.log; "
+            "echo '=== WORKLOAD EXITED; serving boot.log ==='; "
+            "cd /tmp && python -m http.server 8000 --bind 127.0.0.1"
+        ),
+    },
+    # comfyui-qwen-image: text-to-image via ComfyUI + ComfyUI-GGUF (uncensored
+    # Qwen-Image 2.1 GGUF, Qwen Research License -- NOT Apache like Qwen 3.8).
+    # Three files: diffusion GGUF in GPU VRAM (~4.6GB Q4_K_M), Qwen3-VL text
+    # encoder (int8 default, ~9GB -- ComfyUI offloads it to CPU RAM, where it
+    # costs nothing per step since encoding runs once per prompt), VAE.
+    # Fits the cheapest 24GB cards. Unauthenticated UI => REQUIRES --tailscale.
+    # The official Comfy-Org t2i template is preloaded under Workflows; swap
+    # its UNETLoader for Unet Loader (GGUF) and queue.
+    "comfyui-qwen-image": {
+        "image": os.environ.get("COMFY_IMAGE",
+                                "pytorch/pytorch:2.9.1-cuda12.8-cudnn9-runtime"),
+        "model": _QWEN_MODEL,
+        "max_ctx": None,
+        "gpus": ["rtx5090", "a100", "h100", "h200", "rtx6000", "pro6000se"],
+        "storage": "60Gi",
+        "health": "/",
+        "tailscale_only": True,
+        "hf_files": _QWEN_FILES,
+        "ui_help": (
+            "Open the UI in a browser on your tailnet:  {endpoint}\n"
+            "\n"
+            "Starter workflow: left sidebar > Workflows > qwen_image_2_1_t2i\n"
+            "(preloaded official Comfy-Org template). Two swaps to make it GGUF:\n"
+            f"  1. Replace UNETLoader with `Unet Loader (GGUF)` > {_QWEN_DIFFUSION_PATH.rsplit('/', 1)[-1]}\n"
+            f"  2. CLIPLoader > {_QWEN_TE_PATH.rsplit('/', 1)[-1]}, type `qwen_image`; "
+            f"VAE > {_QWEN_VAE_PATH.rsplit('/', 1)[-1]}\n"
+            "Queue a prompt to generate (diffusion stays in VRAM, text encoder\n"
+            "offloads to CPU RAM -- no speed cost).\n"
+            "\n"
+            "--- teardown (billing stops only when closed!) -----------------------------\n"
+            "./shoestring.py close {dseq}"
+        ),
+        "args": (
+            "( nvidia-smi --query-gpu=name,memory.total --format=csv; "
+            "apt-get update && apt-get install -y git wget curl ca-certificates && "
+            "git clone --depth 1 https://github.com/comfyanonymous/ComfyUI /opt/ComfyUI && "
+            "cd /opt/ComfyUI && pip install --no-cache-dir -r requirements.txt && "
+            "git clone --depth 1 https://github.com/leejet/ComfyUI-GGUF custom_nodes/ComfyUI-GGUF && "
+            "( [ -f custom_nodes/ComfyUI-GGUF/requirements.txt ] && pip install --no-cache-dir -r custom_nodes/ComfyUI-GGUF/requirements.txt || true ) && "
+            "mkdir -p models/diffusion_models models/text_encoders models/vae user/default/workflows && "
+            f"wget -nv -O models/diffusion_models/{_QWEN_DIFFUSION_PATH.rsplit('/', 1)[-1]} {_QWEN_DIFFUSION_URL} && "
+            f"wget -nv -O models/text_encoders/{_QWEN_TE_PATH.rsplit('/', 1)[-1]} {_QWEN_TE_URL} && "
+            f"wget -nv -O models/vae/{_QWEN_VAE_PATH.rsplit('/', 1)[-1]} {_QWEN_VAE_URL} && "
+            "( wget -nv -O user/default/workflows/qwen_image_2_1_t2i.json "
+            "https://raw.githubusercontent.com/Comfy-Org/workflow_templates/main/templates/image_qwen_image_2_1_t2i.json "
+            "|| echo 'workflow preload failed; import the template URL manually' ) && "
+            f"python main.py --listen 0.0.0.0 --port 8000 {os.environ.get('COMFY_ARGS', '')}"
             ") 2>&1 | tee /tmp/boot.log; "
             "echo '=== WORKLOAD EXITED; serving boot.log ==='; "
             "cd /tmp && python -m http.server 8000 --bind 127.0.0.1"
@@ -361,6 +432,14 @@ def deploy(args):
     print(f"engine={args.engine}  model={eng['model']}"
           + (f"  ctx={max_ctx}" if max_ctx else "  ctx=auto (self-sized by VRAM)"))
     check_model_exists(eng["model"])
+    for url in eng.get("hf_files", []):
+        try:
+            code = requests.head(url, allow_redirects=True, timeout=15).status_code
+            if code != 200:
+                print(f"WARNING: {url} returned HTTP {code} -- "
+                      "the container will fail to download it. Continuing anyway.")
+        except requests.RequestException:
+            pass
 
     hf_token_env = ""
     if os.environ.get("HF_TOKEN"):
@@ -480,10 +559,11 @@ def deploy(args):
           f"cost: ${usd_hr:.2f}/hr (~${usd_hr * 730:.0f}/mo)\n")
     if eng.get("health") == "/":
         # web-UI engine (e.g. comfyui-flux): no API configs to print
-        print(f"""Open the UI in a browser on your tailnet:  {endpoint}
-
---- teardown (billing stops only when closed!) -----------------------------
-./shoestring.py close {dseq}""")
+        print(eng.get("ui_help",
+              "Open the UI in a browser on your tailnet:  {endpoint}\n"
+              "\n"
+              "--- teardown (billing stops only when closed!) -----------------------------\n"
+              "./shoestring.py close {dseq}").format(endpoint=endpoint, dseq=dseq))
         return
     print(f"""--- smoke test -------------------------------------------------------------
 curl {endpoint}/v1/chat/completions \\

@@ -71,6 +71,7 @@ The container joins your tailnet as an ephemeral node, the model server binds to
 | `vllm` | vLLM + AWQ-INT4 | OpenAI **and Anthropic** | 32GB (Ampere+) | SDL-validated, serving untested |
 | `vllm-fp8` | vLLM + first-party FP8 | OpenAI **and Anthropic** | 40GB | SDL-validated, serving untested |
 | `vllm-nvfp4` | vLLM + NVFP4 | OpenAI **and Anthropic** | Blackwell/Hopper | SDL-validated, serving untested |
+| `comfyui-qwen-image` | ComfyUI + GGUF (Qwen-Image 2.1 uncensored) | web UI | 24GB (~\$0.16/hr) | new, `--tailscale`-only |
 
 The vLLM engines matter because vLLM natively serves the **Anthropic `/v1/messages` protocol** alongside OpenAI's — Claude Code connects directly via `ANTHROPIC_BASE_URL`, no proxy. The llamacpp engine is OpenAI-only; the deploy output prints a one-command LiteLLM bridge for Claude Code.
 
@@ -82,6 +83,10 @@ Default model is **Qwen 3.8 27B** (Apache 2.0, 262k context, hybrid attention/ma
 - **`KV_F16=1`** — full-precision KV cache instead of q8_0 (halves max context, zero quant loss). Measured on the 24GB Quadro: 64k f16 fits (`--max-ctx 65536`).
 - **`NO_MTP=1`** — drop the multi-token-prediction draft. The MTP speculative decoding (per [Simon Willison's writeup](https://simonwillison.net/2026/Aug/16/qwen-38-27b/)) gave us **79 tok/s vs 30** — but the draft is a second 15.5GB GGUF that must be resident, so it's a ≥40GB-card luxury. On a 24GB card it crash-loops; set `NO_MTP=1`.
 - **Reasoning defaults to `low`** server-side (`--chat-template-kwargs`). The model's default `xhigh` reasoning famously over-thinks — we watched it spend 138 tokens deciding to say "I'm Qwen." Override per request with `reasoning_effort`.
+
+### comfyui-qwen-image
+
+Text-to-image (uncensored Qwen-Image 2.1 GGUF, [abenzerps build](https://huggingface.co/abenzerps/Qwen-Image-2.1-Uncensored-GGUF)). Downloads three files at boot: diffusion GGUF (`Q4_K_M`, ~4.6GB, stays in VRAM), Qwen3-VL text encoder (int8, ~9GB — offloads to CPU RAM, no speed cost since encoding runs once per prompt), and VAE. Fits the cheapest 24GB cards. Unauthenticated UI, so `--tailscale` is required. The official Comfy-Org t2i template is preloaded under Workflows — swap its `UNETLoader` for `Unet Loader (GGUF)`, set `CLIPLoader` type to `qwen_image`, and queue. Knobs: `MODEL_ID` selects the diffusion file (`repo:file`), `QWEN_TEXT_ENCODER` / `QWEN_VAE` the companions, `COMFY_ARGS` extra `main.py` flags (e.g. `--lowvram`). Note the license is Qwen Research License, not Apache 2.0.
 
 ## Provider selection
 
