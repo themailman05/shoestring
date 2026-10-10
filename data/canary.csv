@@ -172,3 +172,4 @@ ts,dseq,profile,provider_owner,gpu_model,mode,bid_price_uact_per_block,reachable
 2026-10-09T16:57:24.745031+00:00,1791565045009,cpu-heavy,akash19zzh7whjt4vfwxd5wtj3tjtyatnpntfhldshd8,,coverage,127.817747,True,33.2,4.462,,http://lgfur0cdjtf0ndlcngakersolo.ingress.cpu.dal.aes.akash.pub
 2026-10-09T22:33:44.638723+00:00,1791585225250,gpu,akash172k755dd82elslzcgkgtk3ux5ytdqvx5wq2a98,a100,cheapest,3179.719429,True,35.6,4.68,,http://htqitg30s5et1833mgtmmtgqlk.ingress.a100.hou2.dd.akash.pub
 2026-10-10T05:41:34.137743+00:00,1791610898022,cpu-micro,akash1ggfvyhr9sar4uxjs4hth3p4kzrwk7lysnenj3g,,coverage,4.826603,True,45.1,13.082,,http://loefmrlp2tb8l4v36cnvu6hqpg.ingress.cpu.phl.aes.akash.pub
+2026-10-10T12:22:42.386365+00:00,1791634962991,cpu-heavy,akash1cg7nnkwy8yzulr6x5egn7n06pgthz5wu5auvvv,,coverage,168.756644,True,38.3,4.45,,http://dds192d7vdc058q4t6pngo4an8.ingress.cpu.lax.lsn.akash.pub
