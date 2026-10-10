@@ -1086,3 +1086,8 @@ ts,profile,provider,gpu_model,bid_price_uact_per_block,chosen
 2026-10-10T12:22:42.386365+00:00,cpu-heavy,akash1ggfvyhr9sar4uxjs4hth3p4kzrwk7lysnenj3g,,127.817747,False
 2026-10-10T12:22:42.386365+00:00,cpu-heavy,akash175llqyjvxfle9qwt740vm46772dzaznpzgm576,,140.262242,False
 2026-10-10T12:22:42.386365+00:00,cpu-heavy,akash1cg7nnkwy8yzulr6x5egn7n06pgthz5wu5auvvv,,168.756644,True
+2026-10-10T18:29:23.504565+00:00,gpu,akash16yr3wxt97ae045a06kr3ycde9srcgpg8syjxxm,v100,332.807175,True
+2026-10-10T18:29:23.504565+00:00,gpu,akash1al463a2f6jvf506e73hx0329fwgwz66r7cpkhr,rtx5090,1194.415562,False
+2026-10-10T18:29:23.504565+00:00,gpu,akash1uezxmc39c9uky9plqdvmnzp7yfwpyamjtq9g2w,pro6000se,3400.696426,False
+2026-10-10T18:29:23.504565+00:00,gpu,akash17r6r9u364t49k7qdef52qtm6wm5mcn0lpzfgnv,h100,3402.347706,False
+2026-10-10T18:29:23.504565+00:00,gpu,akash17erkmem6xcugfnew2c0ujfqtet32j29ztk03jt,h100,5268.533573,False
