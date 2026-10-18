@@ -207,3 +207,4 @@ ts,dseq,profile,provider_owner,gpu_model,mode,bid_price_uact_per_block,reachable
 2026-10-18T10:55:16.609384+00:00,1792320917147,cpu-micro,akash19zzh7whjt4vfwxd5wtj3tjtyatnpntfhldshd8,,coverage,4.826603,True,57.1,13.04,,http://27glr00qq5d6j18b5272h51ok0.ingress.cpu.dal.aes.akash.pub
 2026-10-18T15:46:39.812486+00:00,1792338400065,cpu-heavy,akash1s3hq36mpas4nmkqasn7fgwhs9968cgl3u5esnw,,cheapest,41.987956,False,,,never_reachable,http://ll6soj8p4palr9t0rbonn26lc4.ingress.froggy-servers.com
 2026-10-18T18:34:48.808134+00:00,1792348488947,gpu,akash15tl6v6gd0nte0syyxnv57zmmspgju4c3xfmdhk,t4,cheapest,191.877816,False,,,never_reachable,http://n6rs7i3pr1dlr22tvdg6fcv2c0.ingress.hurricane.akash.pub
+2026-10-18T22:23:01.280841+00:00,1792362181521,cpu-micro,akash1cg7nnkwy8yzulr6x5egn7n06pgthz5wu5auvvv,,coverage,5.466273,True,42.5,8.876,,http://nhu5ljbf2ped19sku1er4rt7a0.ingress.cpu.lax.lsn.akash.pub
