@@ -221,3 +221,4 @@ ts,dseq,profile,provider_owner,gpu_model,mode,bid_price_uact_per_block,reachable
 2026-10-21T13:42:04.071644+00:00,1792590124318,gpu,akash1svfr9xarfkcxwdnx32nvl8cs9rfruu4nd56c4f,h100,coverage,4265.995827,True,35.0,4.522,,http://lm1d4hj7jheg10hii75hvosipc.ingress.h100.ams2.val.akash.pub
 2026-10-21T18:33:09.315093+00:00,1792607589565,cpu-micro,akash1cg7nnkwy8yzulr6x5egn7n06pgthz5wu5auvvv,,coverage,5.466273,True,36.1,8.87,,http://k90knff23hec54nku05ckk7ue4.ingress.cpu.lax.lsn.akash.pub
 2026-10-21T23:12:51.827032+00:00,1792624372163,cpu-heavy,akash1dudfnsqwfecytfqxwvnfc7eqc5ca429zfkhwyd,,coverage,50.568841,True,35.9,4.212,,http://4cpdvratd9f85af4ivi6jd9gh8.ingress.onenode.dev
+2026-10-22T04:31:48.335966+00:00,1792643508543,gpu,akash172k755dd82elslzcgkgtk3ux5ytdqvx5wq2a98,a100,coverage,3179.719429,True,37.3,4.727,,http://dlkjovogjpduhc1jljfe2eepnc.ingress.a100.hou2.dd.akash.pub
