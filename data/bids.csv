@@ -1440,3 +1440,10 @@ ts,profile,provider,gpu_model,bid_price_uact_per_block,chosen
 2026-10-22T21:29:01.382126+00:00,gpu,akash15tl6v6gd0nte0syyxnv57zmmspgju4c3xfmdhk,t4,191.877816,True
 2026-10-22T21:29:01.382126+00:00,gpu,akash16yr3wxt97ae045a06kr3ycde9srcgpg8syjxxm,v100,332.807175,False
 2026-10-22T21:29:01.382126+00:00,gpu,akash172k755dd82elslzcgkgtk3ux5ytdqvx5wq2a98,a100,3179.719429,False
+2026-10-23T00:34:57.843497+00:00,cpu-micro,akash1s3hq36mpas4nmkqasn7fgwhs9968cgl3u5esnw,,2.135568,True
+2026-10-23T00:34:57.843497+00:00,cpu-micro,akash15tl6v6gd0nte0syyxnv57zmmspgju4c3xfmdhk,,2.954114,False
+2026-10-23T00:34:57.843497+00:00,cpu-micro,akash127x6cuk44ul3azferg8wy9fju686kcf6x2dhz7,,2.99482,False
+2026-10-23T00:34:57.843497+00:00,cpu-micro,akash16yr3wxt97ae045a06kr3ycde9srcgpg8syjxxm,,3.636584,False
+2026-10-23T00:34:57.843497+00:00,cpu-micro,akash175llqyjvxfle9qwt740vm46772dzaznpzgm576,,4.640517,False
+2026-10-23T00:34:57.843497+00:00,cpu-micro,akash19zzh7whjt4vfwxd5wtj3tjtyatnpntfhldshd8,,4.826603,False
+2026-10-23T00:34:57.843497+00:00,cpu-micro,akash1cg7nnkwy8yzulr6x5egn7n06pgthz5wu5auvvv,,5.466273,False
