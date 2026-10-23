@@ -539,3 +539,9 @@ ts,provider_owner,gpu_model,bid_price_uact_per_block,reachable,time_to_ready_sec
 2026-10-22T08:05:41.001167+00:00,akash16yr3wxt97ae045a06kr3ycde9srcgpg8syjxxm,v100,332.807,False,,"exception:HTTPError:404 from POST /leases: {""error"":""NotFoundError"",""message"":""The lease for deployment 1792656303404 exists, but provider akash16yr3wxt97ae045a06kr3ycde9srcgpg8syjxxm did not receive "
 2026-10-22T12:05:45.790986+00:00,akash15tl6v6gd0nte0syyxnv57zmmspgju4c3xfmdhk,t4,191.878,True,35.7436,
 2026-10-22T16:05:43.105662+00:00,akash15tl6v6gd0nte0syyxnv57zmmspgju4c3xfmdhk,t4,191.878,True,35.0842,
+2026-10-22T20:05:55.394662+00:00,akash15tl6v6gd0nte0syyxnv57zmmspgju4c3xfmdhk,t4,191.878,True,46.4844,
+2026-10-23T00:05:44.598788+00:00,akash16yr3wxt97ae045a06kr3ycde9srcgpg8syjxxm,v100,332.807,True,34.5931,
+2026-10-23T04:05:46.444303+00:00,akash16yr3wxt97ae045a06kr3ycde9srcgpg8syjxxm,v100,332.807,True,37.6484,
+2026-10-23T08:05:44.428921+00:00,akash1hgulk6aekakqzc0v6wukrd3dy9n90f5gkl4ezk,t4,218,True,35.9874,
+2026-10-23T12:05:55.821129+00:00,akash15tl6v6gd0nte0syyxnv57zmmspgju4c3xfmdhk,t4,191.878,True,48.1374,
+2026-10-23T16:05:44.893539+00:00,akash16yr3wxt97ae045a06kr3ycde9srcgpg8syjxxm,v100,332.807,True,38.4052,
