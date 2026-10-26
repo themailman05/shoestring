@@ -240,3 +240,4 @@ ts,dseq,profile,provider_owner,gpu_model,mode,bid_price_uact_per_block,reachable
 2026-10-25T16:03:44.525861+00:00,1792944224733,cpu-micro,akash1s3hq36mpas4nmkqasn7fgwhs9968cgl3u5esnw,,cheapest,2.135568,False,,,never_reachable,http://8oduqnn06lbo5112qa5ju4690o.ingress.froggy-servers.com
 2026-10-25T18:57:43.459664+00:00,1792954663654,cpu-heavy,akash1k94uya5rhrtj9rfw850az9aq2d6vdpjmtnlgd0,,coverage,71.108072,True,36.7,4.486,,http://kki6u6mugl857ek1md2kn84pq8.ingress.boogle.cloud
 2026-10-25T22:29:14.796484+00:00,1792967355124,gpu,akash17r6r9u364t49k7qdef52qtm6wm5mcn0lpzfgnv,h100,cheapest,3402.347706,True,40.9,3.814,,http://rkg1strj95bat61kph98kr49oo.ingress.h100.siamaidol.com
+2026-10-26T04:35:00.480914+00:00,1792989300660,cpu-micro,akash1s3hq36mpas4nmkqasn7fgwhs9968cgl3u5esnw,,cheapest,2.135568,False,,,never_reachable,http://ce76t8m8bpd7fd8c6s2h4r6hjo.ingress.froggy-servers.com
