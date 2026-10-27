@@ -247,3 +247,4 @@ ts,dseq,profile,provider_owner,gpu_model,mode,bid_price_uact_per_block,reachable
 2026-10-27T04:53:01.940898+00:00,1793076782101,cpu-heavy,akash127x6cuk44ul3azferg8wy9fju686kcf6x2dhz7,,cheapest,55.971031,True,41.1,4.181,,http://d8disjmqe9c0j536ek1i6pnjt8.ingress.akash.rhite.co.uk
 2026-10-27T12:01:20.782443+00:00,1793102480983,gpu,akash16yr3wxt97ae045a06kr3ycde9srcgpg8syjxxm,v100,cheapest,263.024966,True,44.1,15.539,,http://u9854t192he1taa2rah5cplg84.ingress.zencloud.eu
 2026-10-27T17:54:49.037691+00:00,1793123689208,cpu-micro,akash15tl6v6gd0nte0syyxnv57zmmspgju4c3xfmdhk,,cheapest,2.954114,True,34.4,8.407,,http://ergdb2bc498v1ahaiicue0b628.ingress.hurricane.akash.pub
+2026-10-27T22:06:55.385245+00:00,1793138815654,cpu-heavy,akash1rja3y2ctj3tzmesvh0zfhzzx95rfjw405hwt8d,,coverage,84.915645,True,37.7,3.332,,http://br3tptmt8pf65ednv2qrg6uh4s.ingress.pronto-ai.pp.ua
