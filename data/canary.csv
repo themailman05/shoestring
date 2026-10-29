@@ -252,3 +252,4 @@ ts,dseq,profile,provider_owner,gpu_model,mode,bid_price_uact_per_block,reachable
 2026-10-28T08:19:45.420186+00:00,1793175585640,cpu-micro,akash15tl6v6gd0nte0syyxnv57zmmspgju4c3xfmdhk,,cheapest,2.954114,False,,,never_reachable,http://en1unogjs5845blsvhvj9i924s.ingress.hurricane.akash.pub
 2026-10-28T16:34:24.244528+00:00,1793205264456,cpu-heavy,akash1aaul837r7en7hpk9wv2svg8u78fdq0t2j2e82z,,coverage,58.0,True,45.9,16.694,,http://rcsl2k38adb5n9jesnn49t4tck.ingress.h6i-dedicated.eu-se-1.digitalfrontier.so
 2026-10-28T22:29:42.922262+00:00,1793226583430,gpu,akash17r6r9u364t49k7qdef52qtm6wm5mcn0lpzfgnv,h100,coverage,3402.347706,True,39.9,3.755,,http://a348v1ngj9abn7qs3hq2thvh88.ingress.h100.siamaidol.com
+2026-10-29T05:36:52.551543+00:00,1793252212725,cpu-micro,akash15tl6v6gd0nte0syyxnv57zmmspgju4c3xfmdhk,,cheapest,2.954114,True,37.2,8.342,,http://dn2i92efgh8fp8s4i71bd9hec4.ingress.hurricane.akash.pub
