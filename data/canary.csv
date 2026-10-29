@@ -255,3 +255,6 @@ ts,dseq,profile,provider_owner,gpu_model,mode,bid_price_uact_per_block,reachable
 2026-10-29T05:36:52.551543+00:00,1793252212725,cpu-micro,akash15tl6v6gd0nte0syyxnv57zmmspgju4c3xfmdhk,,cheapest,2.954114,True,37.2,8.342,,http://dn2i92efgh8fp8s4i71bd9hec4.ingress.hurricane.akash.pub
 2026-10-29T12:51:00.920766+00:00,1793278261184,cpu-heavy,akash1dudfnsqwfecytfqxwvnfc7eqc5ca429zfkhwyd,,cheapest,50.568841,True,35.9,4.239,,http://0a1ik2sqalcahf5gj8j1k9j46g.ingress.onenode.dev
 2026-10-29T19:33:09.128561+00:00,1793302389443,gpu,akash1uezxmc39c9uky9plqdvmnzp7yfwpyamjtq9g2w,pro6000se,coverage,4214.822207,True,37.0,3.559,,http://ec3q368j31dkl5td2e3kps2hj0.ingress.pro6000.hou.aes.akash.pub
+2026-10-29T23:54:07.633210+00:00,1793318047935,cpu-micro,akash1ggfvyhr9sar4uxjs4hth3p4kzrwk7lysnenj3g,,coverage,4.826603,False,,,"exception:HTTPError:502 from POST /leases: <!DOCTYPE html>
+<!--[if lt IE 7]> <html class=""no-js ie6 oldie"" lang=""en-US""> <![endif]-->
+<!--[if IE 7]>    <html class=""no-js ie7 oldie"" lang=""en-US""> <![e",
