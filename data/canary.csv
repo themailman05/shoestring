@@ -259,3 +259,4 @@ ts,dseq,profile,provider_owner,gpu_model,mode,bid_price_uact_per_block,reachable
 <!--[if lt IE 7]> <html class=""no-js ie6 oldie"" lang=""en-US""> <![endif]-->
 <!--[if IE 7]>    <html class=""no-js ie7 oldie"" lang=""en-US""> <![e",
 2026-10-30T05:35:42.160551+00:00,1793338542314,cpu-micro,akash19zzh7whjt4vfwxd5wtj3tjtyatnpntfhldshd8,,coverage,4.826603,True,32.5,8.938,,http://vtibqgb35ld33fjokhlootjlro.ingress.cpu.dal.aes.akash.pub
+2026-10-30T12:42:21.043074+00:00,1793364141229,cpu-heavy,akash1s3hq36mpas4nmkqasn7fgwhs9968cgl3u5esnw,,cheapest,40.908657,False,,,never_reachable,http://rgfq1lbvblbh3ac1df92c1fnho.ingress.froggy-servers.com
