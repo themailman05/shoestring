@@ -583,3 +583,4 @@ ts,provider_owner,gpu_model,bid_price_uact_per_block,reachable,time_to_ready_sec
 2026-10-29T20:05:31.220531+00:00,akash15tl6v6gd0nte0syyxnv57zmmspgju4c3xfmdhk,t4,191.878,False,,"exception:HTTPError:502 from POST /leases: <!DOCTYPE html>
 <!--[if lt IE 7]> <html class=""no-js ie6 oldie"" lang=""en-US""> <![endif]-->
 <!--[if IE 7]>    <html class=""no-js ie7 oldie"" lang=""en-US""> <![e"
+2026-11-02T00:05:48.445667+00:00,akash16yr3wxt97ae045a06kr3ycde9srcgpg8syjxxm,v100,309.546,True,36.577,
