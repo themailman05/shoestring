@@ -287,3 +287,4 @@ ts,dseq,profile,provider_owner,gpu_model,mode,bid_price_uact_per_block,reachable
 2026-11-06T15:51:57.593622+00:00,1793980317989,gpu,akash1uezxmc39c9uky9plqdvmnzp7yfwpyamjtq9g2w,pro6000se,coverage,4214.822207,True,35.2,3.549,,http://6l777te43h8ht7u9it2rq9att4.ingress.pro6000.hou.aes.akash.pub
 2026-11-06T21:26:41.013911+00:00,1794000401225,cpu-micro,akash1ggfvyhr9sar4uxjs4hth3p4kzrwk7lysnenj3g,,coverage,4.826603,True,39.5,8.919,,http://9o8tf82o6dd3t4d2ejqvnba6fo.ingress.cpu.phl.aes.akash.pub
 2026-11-07T01:49:46.492638+00:00,1794016186689,cpu-heavy,akash1sevd2ymtty3dpq9ycxgkhuzzk4fe6mchqdwd4e,,cheapest,30.727433,True,51.3,17.03,,http://pjsvereup9aovddesgb9kt1gvk.ingress.jjozzietech.com.au
+2026-11-07T08:40:39.700365+00:00,1794040840070,gpu,akash17erkmem6xcugfnew2c0ujfqtet32j29ztk03jt,h100,coverage,5268.533573,True,43.7,3.89,,http://obks79iq25f4j28uin85ejknjc.ingress.h100.wdc.hh.akash.pub
