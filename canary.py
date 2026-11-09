@@ -18,6 +18,12 @@ widen the sample beyond GPUs:
              provider can serve it, so its BID LIST is a census of who is
              actually alive, and its leases test the long tail for cents
   cpu-heavy  8 CPU / 32Gi -- tests real capacity claims
+  gpu-pro6000  1x pro6000se (96GB) sized like a real Flash-Next serve
+             (8 CPU / 64Gi / 150Gi). MANUAL ONLY (--profile gpu-pro6000):
+             excluded from auto-cycle and sweep, since its leases cost
+             ~$2/hr. Note Console API injects signed_by any_of
+             [akash1365yvmc4...] on every order, so it only reaches
+             providers signed by that auditor.
 
 Every run also appends EVERY bid received to data/bids.csv (provider,
 price, profile, chosen) -- the marketplace census comes free with each
@@ -132,7 +138,21 @@ PROFILES = {
         "        memory:\n          size: 32Gi\n"
         "        storage:\n          size: 10Gi\n"
     ),
+    # Price discovery for a real Flash-Next serve (UD-IQ4_XS is 87 GiB):
+    # providers price CPU/RAM/disk too, so request what the serve needs.
+    "gpu-pro6000": (
+        "        cpu:\n          units: 8\n"
+        "        memory:\n          size: 64Gi\n"
+        "        storage:\n          size: 150Gi\n"
+        "        gpu:\n          units: 1\n"
+        "          attributes:\n            vendor:\n              nvidia:\n"
+        "                - model: pro6000se\n"
+    ),
 }
+
+# Profiles the cron auto-cycle and `sweep` rotate through. Pinned-only
+# profiles (expensive leases) stay out so a schedule can't run them.
+AUTO_PROFILES = ["gpu", "cpu-micro", "cpu-heavy"]
 
 FIELDS = ["ts", "dseq", "profile", "provider_owner", "gpu_model", "mode",
           "bid_price_uact_per_block", "reachable", "time_to_ready_seconds",
@@ -193,7 +213,7 @@ def _pick_profile(out_path):
     n = 0
     if os.path.exists(out_path):
         n = sum(1 for _ in open(out_path)) - 1
-    return list(PROFILES)[n % len(PROFILES)]
+    return AUTO_PROFILES[n % len(AUTO_PROFILES)]
 
 
 def run_one(profile, args):
@@ -234,7 +254,7 @@ def run_one(profile, args):
         # once per 24h. Raised by a provider in review -- fair point.
         seen = _last_tested(args.out)
         pool = ranked
-        if profile == "gpu":
+        if profile.startswith("gpu"):
             cutoff = datetime.now(timezone.utc).timestamp() - 24 * 3600
             def fresh(b):
                 ts_prev = seen.get(b["bid"]["id"]["provider"])
@@ -318,14 +338,14 @@ def main():
     r = sub.add_parser("run", help="one probe (auto-cycles profiles)")
     r.add_argument("--profile", choices=list(PROFILES), default=None)
     common(r)
-    s = sub.add_parser("sweep", help="one probe of every profile")
+    s = sub.add_parser("sweep", help="one probe of every auto-cycle profile")
     common(s)
     args = ap.parse_args()
 
     if args.cmd == "run":
         run_one(args.profile or _pick_profile(args.out), args)
     else:
-        for p in PROFILES:
+        for p in AUTO_PROFILES:
             run_one(p, args)
 
 
