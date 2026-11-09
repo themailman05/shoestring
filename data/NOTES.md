@@ -4,6 +4,59 @@ Failure rows with operator-provided context. A documented failure with a
 named cause is worth more to the framework than a clean row; a documented
 failure with an *honestly unresolved* cause is worth almost as much.
 
+## Sampling scope: every order is auditor-gated by Console API (found 2026-11-09)
+
+**Applies to every row in `canary.csv`, `canary_live.csv`, `bids.csv` and
+the pilot CSV.** The canary submits raw SDL through Console API's
+managed-wallet endpoint (`POST /v1/deployments`). The SDL has never
+contained `signed_by` (checked across the full history of this repo and
+of the in-cluster predecessor), but Console adds one server-side. Every
+order from tenant `akash1dtf429gnxhdgtfklm50l0tws8ukkl7m7ejk9e9` carries
+it on-chain:
+
+```json
+"signed_by": { "all_of": [], "any_of": ["akash1365yvmc4s7awdyj3n2sav7xfx76adc6dnmlx63"] }
+```
+
+Verified on the 8 most recent deployments (e.g. dseqs `1794188392782`,
+`1794182704111`, `1794175053402`):
+
+```
+curl -s "https://akash-api.polkachu.com/akash/deployment/v1beta4/deployments/list?filters.owner=akash1dtf429gnxhdgtfklm50l0tws8ukkl7m7ejk9e9&pagination.limit=8&pagination.reverse=true" \
+  | jq '.deployments[].groups[].group_spec.requirements.signed_by'
+```
+
+Consequences:
+
+- The census is a census of **providers signed by `akash1365yvmc4…`**,
+  not of the open marketplace. Providers without that attestation can't
+  bid, so they're absent, not merely unchosen. Every reachability and
+  price figure in this repo is "among that auditor's providers".
+- It explains the Sep 3 – Sep 23 "bid on zero" episode with
+  provider.jjozzietech.com.au: its attestation from this auditor was
+  removed on 2026-08-18. An earlier claim that placement was
+  "pricing-only, no signedBy" was true of the SDL but not of the order.
+- In the 2026-11-09 snapshot, two pro6000se providers with 25/56 and 8/8
+  cards free had never bid on a canary order. Gating is a likely
+  explanation, but not a confirmed one.
+
+Status: asked the Console team about an opt-out on
+[discussion #1508](https://github.com/akash-network/community/discussions/1508#discussioncomment-19483172).
+If there is none, probes move to a self-custody wallet via
+`provider-services`, with rows tagged by submission path so the
+audited-only vs. open-market difference is measured.
+
+## Legacy in-cluster canary ran on until 2026-11-09 (same wallet)
+
+The in-cluster canary (`akash-cost-monitor`, cronjob
+`akash-canary-tester`, every 4h) was removed from its deploy manifest on
+2026-09-02 when public CI took over. The CronJob object itself was never
+deleted, so it kept leasing until 2026-11-09, when it was deleted. It
+used the **same tenant wallet**, so its leases from that window are
+on-chain with no matching rows in this repo's CSVs. They wrote to the
+private Supabase table instead. Chain reconciliation should attribute
+them to the legacy series, not count them as lost canary records.
+
 ## 2026-07-30T12:07:39Z · akash1sevd2… (provider.jjozzietech.com.au) · never_reachable
 
 - On-chain lease: dseq `1785413103258`, created 2026-07-30T12:05:03Z,

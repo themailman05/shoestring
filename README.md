@@ -90,7 +90,7 @@ Text-to-image (uncensored Qwen-Image 2.1 GGUF, [abenzerps build](https://hugging
 
 ## Provider selection
 
-Cheapest bid wins, minus an optional blacklist — **empty by default** (a community tool shouldn't ship named provider addresses; populate `BLACKLIST=addr1,addr2` from your own experience). Our month of automated canary deployments (raw pilot data in [`data/`](data/), 176 real leases, sampling mode caveats apply) suggests paying more buys nothing on Akash: in our sample, sub-\$0.10/hr bids were \~98% reachable while one provider bidding 6x market went 0-for-8. A criteria-based filter ("avoid providers below X% measured reachability over N days") is planned.
+Cheapest bid wins, minus an optional blacklist — **empty by default** (a community tool shouldn't ship named provider addresses; populate `BLACKLIST=addr1,addr2` from your own experience). Our month of automated canary deployments (raw pilot data in [`data/`](data/), 176 real leases, sampling mode caveats apply) suggests paying more buys nothing on Akash: in our sample, sub-\$0.10/hr bids were \~98% reachable while one provider bidding 6x market went 0-for-8. **Scope caveat:** Console API adds an auditor requirement (`signed_by any_of akash1365yvmc4…`) to every order it submits, so this data, and `shoestring deploy` itself, only ever sees providers signed by that auditor. See [`data/NOTES.md`](data/NOTES.md#sampling-scope-every-order-is-auditor-gated-by-console-api-found-2026-11-09). A criteria-based filter ("avoid providers below X% measured reachability over N days") is planned.
 
 ## Field notes (paid for in failed deployments)
 
