@@ -1980,3 +1980,4 @@ ts,profile,provider,gpu_model,bid_price_uact_per_block,chosen
 2026-11-11T17:50:58.453212+00:00,gpu,akash1uezxmc39c9uky9plqdvmnzp7yfwpyamjtq9g2w,pro6000se,4214.822207,False
 2026-11-11T17:50:58.453212+00:00,gpu,akash1svfr9xarfkcxwdnx32nvl8cs9rfruu4nd56c4f,h100,4265.995827,False
 2026-11-11T17:50:58.453212+00:00,gpu,akash17erkmem6xcugfnew2c0ujfqtet32j29ztk03jt,h100,5268.533573,False
+2026-11-12T00:31:34.956364+00:00,cpu-micro,akash127x6cuk44ul3azferg8wy9fju686kcf6x2dhz7,,2.99482,True
