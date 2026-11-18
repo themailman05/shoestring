@@ -322,3 +322,4 @@ ts,dseq,profile,provider_owner,gpu_model,mode,bid_price_uact_per_block,reachable
 2026-11-17T02:52:57.090373+00:00,,cpu-heavy,none,,,,False,,,exception:HTTPError:402 Client Error: Payment Required for url: https://console-api.akash.network/v1/deployments,
 2026-11-17T13:09:48.135618+00:00,,gpu,none,,,,False,,,exception:HTTPError:402 Client Error: Payment Required for url: https://console-api.akash.network/v1/deployments,
 2026-11-17T22:12:39.821943+00:00,,cpu-micro,none,,,,False,,,exception:HTTPError:402 Client Error: Payment Required for url: https://console-api.akash.network/v1/deployments,
+2026-11-18T07:12:34.128711+00:00,,cpu-heavy,none,,,,False,,,exception:HTTPError:402 Client Error: Payment Required for url: https://console-api.akash.network/v1/deployments,
